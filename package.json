@@ -1,0 +1,31 @@
+{
+  "name": "Las Palmas Flowdock Hubot",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Perttu Haliseva <firstname@gmail.com>",
+  "description": "Your friendly Flowdock companion for Las Palmas trip",
+  "dependencies": {
+    "dropbox": "^2.4.0",
+    "hubot": "^2.19.0",
+    "hubot-diagnostics": "0.0.1",
+    "hubot-flowdock": "^0.7.6",
+    "hubot-help": "^0.2.0",
+    "hubot-heroku-keepalive": "^1.0.2",
+    "hubot-redis-brain": "0.0.3",
+    "hubot-rules": "^0.1.1",
+    "hubot-scripts": "^2.17.2",
+    "lodash": "^4.16.5",
+    "moment": "^2.15.2",
+    "request": "^2.76.0"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "devDependencies": {
+    "eslint": "^3.9.0",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.4.1"
+  }
+}
