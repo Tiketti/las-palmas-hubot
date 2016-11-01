@@ -55,7 +55,26 @@ Installing Xcode and its command line tools is a prerequisite for node-gyp to fu
 
     exec node_modules/.bin/coffee --nodejs --debug node_modules/.bin/hubot --name "laspalmas" "$@"
 
-And use the default `attach` debugging task of VSCode.
+And use the default `attach` debugging task of VSCode. Example:
+
+```javascript
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to bot",
+      "type": "node",
+      "request": "attach",
+      "port": 5858,
+      "restart": false,
+      "sourceMaps": false,
+      "outDir": null,
+      "localRoot": "${workspaceRoot}"
+    }
+  ]
+}
+```
+
 
 ## Deployment
 

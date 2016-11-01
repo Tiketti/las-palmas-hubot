@@ -12,6 +12,23 @@ const coords = {
   long: -15.4746367,
 };
 const box = new Dropbox({ accessToken: DROPBOX_TOKEN });
+const decideIcon = (iconName) => {
+  const randomIcons = ['tada', 'sparkles', 'boom'];
+  switch (iconName) {
+    case 'clear-day':
+      return ':sunny:';
+    case 'rain':
+      return `:${_.sample(['umbrella', 'closed_umbrella'])}:`;
+    case 'wind':
+      return ':dash:';
+    case 'cloudy':
+      return ':cloud:';
+    case 'partly-cloudy-day':
+      return ':cloud:';
+    default:
+      return `:${_.sample(randomIcons)}:`;
+  }
+};
 
 const getCurrentWeather = () =>
   new Promise((resolve, reject) => {
@@ -21,7 +38,15 @@ const getCurrentWeather = () =>
         console.log(`error fetching weather: ${error}`);
         reject(error);
       }
-      resolve(JSON.parse(body).currently.temperature);
+      const currently = JSON.parse(body).currently;
+      const summary = currently.summary;
+      const emoji = decideIcon(currently.icon);
+      const degrees = _.round(currently.temperature, 1);
+      resolve({
+        degrees,
+        summary,
+        emoji,
+      });
     });
   });
 
@@ -67,7 +92,7 @@ module.exports = (robot) => {
 
   robot.respond('/weather/i', (msg) => {
     getCurrentWeather()
-      .then(weather => msg.reply(`Weather is currently ${weather} °C`))
+      .then(weather => msg.reply(`${weather.emoji} Weather is currently ${weather.summary} and ${weather.degrees} °C`))
       .catch('Sorry, could get weather');
   });
 
