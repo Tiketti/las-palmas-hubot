@@ -34,7 +34,7 @@ Then you can interact with laspalmas by typing `laspalmas help`.
     laspalmas help - Displays all of the help commands that laspalmas knows about. Including the default Hubot commands
     ...
 
-## Set environment variables
+## Configuration
 
 The following environment variables should be set:
 
@@ -45,7 +45,11 @@ Access token to Dropbox folder
 Access token for Flowdock bot's account
 
     DARK_SKY_TOKEN
-Access token to Dark Sky (formerly forecast.io)  API
+Access token to Dark Sky (formerly forecast.io) API
+
+Installing Xcode and its command line tools is a prerequisite for node-gyp to function. Please see [here][node-gyp] for more details.
+
+[node-gyp]: https://github.com/nodejs/node-gyp
 
 ## Debugging scripts
 
