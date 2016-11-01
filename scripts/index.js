@@ -32,7 +32,7 @@ const getDropboxShareLink = file =>
         resolve(linkResult.url);
       })
       .catch((err) => {
-        console.log(`couldn't create shared link: ${err}`);
+        console.log(`couldn't create Dropbox shared link: ${err}`);
         box.sharingListSharedLinks({ path: file.path_lower, direct_only: true })
           .then((result) => {
             resolve(result.links[0].url);
