@@ -51,6 +51,12 @@ Installing Xcode and its command line tools is a prerequisite for node-gyp to fu
 
 [node-gyp]: https://github.com/nodejs/node-gyp
 
+## Joining channels
+
+You can use your bot's user accound to join any channels you wish the bot to listen to.
+
+**Note!** The bot script has to be restarted for the changes to take effect.  
+
 ## Debugging scripts
 
     exec node_modules/.bin/coffee --nodejs --debug node_modules/.bin/hubot --name "laspalmas" "$@"
