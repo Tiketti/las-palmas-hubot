@@ -1,6 +1,17 @@
-// process.env.HUBOT_FLOWDOCK_API_TOKEN should be set for Flowdock adapter
-const DROPBOX_TOKEN = process.env.DROPBOX_TOKEN;
-const DARK_SKY_TOKEN = process.env.DARK_SKY_TOKEN;
+// Description:
+//   Flowdock bot to serve photos and weather
+//
+// Configuration:
+//   HUBOT_FLOWDOCK_API_TOKEN
+//   DROPBOX_TOKEN
+//   DARK_SKY_TOKEN
+//
+// Commands:
+//   hubot photo - serves a random photo from preconfigured Dropbox folder
+//   hubot weather - replies with current weather and tomorrow's summary forecast
+//
+// Author:
+//   https://github.com/Tiketti
 
 const request = require('request');
 const moment = require('moment');
@@ -11,7 +22,7 @@ const coords = {
   lat: 28.117432,
   long: -15.4746367,
 };
-const box = new Dropbox({ accessToken: DROPBOX_TOKEN });
+const box = new Dropbox({ accessToken: process.env.DROPBOX_TOKEN });
 
 const decideIcon = (iconName) => {
   const icons = {
@@ -30,12 +41,19 @@ const decideIcon = (iconName) => {
 
 const getCurrentWeather = () =>
   new Promise((resolve, reject) => {
-    const forecastEndpoint = `https://api.forecast.io/forecast/${DARK_SKY_TOKEN}/${coords.lat},${coords.long}?units=si`;
+    const forecastEndpoint = `https://api.forecast.io/forecast/${process.env.DARK_SKY_TOKEN}/${coords.lat},${coords.long}?units=si`;
     request(forecastEndpoint, (error, response, body) => {
       if (error) {
         console.log(`error fetching weather: ${error}`);
         reject(error);
+        return;
       }
+      if (response.statusCode !== 200) {
+        console.log(`error fetching weather: ${response.statusMessage}`);
+        reject('an error occurred');
+        return;
+      }
+
       const json = JSON.parse(body);
       const currently = json.currently;
       const currentlySummary = currently.summary;
@@ -86,16 +104,11 @@ const logInput = (msg) => {
 };
 
 module.exports = (robot) => {
-  // listens to all messages in all of Hubot's flows
-  // robot.hear('', (msg) => {
-  //   logInput(msg);
-  // });
-
   robot.respond('/weather/i', (msg) => {
     getCurrentWeather()
       .then(weather => msg.reply(`${weather.emoji} Weather is currently ${weather.currentlySummary} and ${weather.degrees} °C.
       Tomorrow is expected to be ${weather.tomorrowSummary}`))
-      .catch('Sorry, could get weather');
+      .catch(reason => msg.reply(`Sorry, couldn't get weather: '${reason}'`));
   });
 
   robot.respond('/photo/i', (msg) => {
@@ -104,6 +117,4 @@ module.exports = (robot) => {
       msg.reply(link);
     });
   });
-
-  // TODO: countdown
 };

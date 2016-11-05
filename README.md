@@ -34,22 +34,31 @@ Then you can interact with laspalmas by typing `laspalmas help`.
     laspalmas help - Displays all of the help commands that laspalmas knows about. Including the default Hubot commands
     ...
 
+
 ## Configuration
 
 The following environment variables should be set:
 
     DROPBOX_TOKEN
-Access token to Dropbox folder
+Access token for Dropbox folder
 
     HUBOT_FLOWDOCK_API_TOKEN
 Access token for Flowdock bot's account
 
     DARK_SKY_TOKEN
-Access token to Dark Sky (formerly forecast.io) API
+Access token for Dark Sky (formerly forecast.io) API
 
 Installing Xcode and its command line tools is a prerequisite for node-gyp to function. Please see [here][node-gyp] for more details.
 
 [node-gyp]: https://github.com/nodejs/node-gyp
+
+## Heroku and local environment
+
+If you are running bot in Heroku, make sure environment variables are set as described above. Then run: 
+
+     % heroku run bin/hubot
+
+to start bot with Shell adapter.
 
 ## Joining channels
 
